@@ -1,61 +1,10 @@
-// const searchBook = search =>{
-//     const url =`https://openlibrary.org/search.json?q=javascript`;
-//     fetch(url)
-//     .then(res => res.json())
-//     .then(data => displaySearchBook(data.docs[0]));
-// }
-// searchBook();
-
-
-
-// const searchBook =()=>{
-//     const search = document.getElementById('search-text');
-//     const searchText = search.value;
-//     search.value = '';
-
-//     // console.log(searchText);
-
-//     const url = `https://openlibrary.org/search.json?q=${searchText}`;
-    
-//     fetch(url)
-//     .then(res => res.json())
-//     .then(data => displayBook(data.docs));    
-// }
-
-// const displaySearchBook = docs =>{
-//     const addBook = document.getElementById('book-result');
-//     addBook.textContent = '';
-//     docs.forEach(doc =>{
-//         console.log(doc);
-//         const div = document.createElement('div');
-//         div.classList.add('col');
-//         const url= `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg`;
-//         url.slice(0, 6);
-//         div.innerHTML =`
-//                 <div class="card h-100">
-//                     <img src="${url}" class="card-img-top" alt="...">
-//                     <div class="card-body">
-//                     <h5 class="card-title">${doc.title}</h5>
-//                     <p class="card-text">${doc.author_name} ${doc.first_publish_year}</p>
-//                     </div>
-//                 </div>
-//         `;
-//         addBook.appendChild(div);
-//         // div.innerHTML = `
-//         //     <p>${doc.title}</p>
-//         //     <img src="${url}" class="img-fluid" alt="...">
-//         //     <h6>${doc.publish_date}</h6>
-//         // `;
-//         // addBook.appendChild(div);
-
-//     })
-// }
 
 // =============Click Event Button ================
 
 const searchBook = () =>{
     const search = document.getElementById('search-text');
     const searchText = search.value;
+    // loadBook(searchText);
     search.value = '';
     const url =`https://openlibrary.org/search.json?q=${searchText}`;
     fetch(url)
@@ -63,13 +12,15 @@ const searchBook = () =>{
     .then(data => displayBookTitle(data.docs));
 }
 // searchBook();
+
 const displayBookTitle = titles =>{
     const book = document.getElementById('add-book');
     book.textContent ='';
+    if(!titles){
+        window.alert('Not Found Your search Result')
+    }
     titles.forEach(titleBook =>{
-        console.log(titleBook);
         const div = document.createElement('div');
-        // div.classList.add('card');
         div.innerHTML =`
                 <div class="col"> 
                     <div class="card">
@@ -81,9 +32,8 @@ const displayBookTitle = titles =>{
                </div>
         `;
         book.appendChild(div);
-    })
-}
-
+    });
+};
 
 // hard code book list showing
 
@@ -95,7 +45,6 @@ const bookData =()=>{
 bookData();
 const displayBook = books =>{
     const bookList = books.slice(0, 8);
-    console.log(bookList);
     const addBook = document.getElementById('book-result');
     bookList.forEach(book =>{
         const div = document.createElement('div');
@@ -111,6 +60,37 @@ const displayBook = books =>{
              </div>
         `;
         addBook.appendChild(div);
-    })
+    });
 
-}
+};
+
+// ==================Dynamic link but not check because api create problem =========
+
+
+// const loadBook = searchText =>{
+//     const url = `https://openlibrary.org/search.json?q=${searchText}`;
+//     fetch(url)
+//     .then(res => res.json())
+//     .then(data =>displayLoadingBook(data.docs));
+// }
+// loadBook('Javascript');
+
+// const displayLoadingBook = loading =>{
+//     const loads = loading.slice(0, 8);
+//     const addBook = document.getElementById('book-result');
+//     loads.forEach(load =>{
+//         const div = document.createElement('div');
+//         div.classList.add('col');
+//         const url= `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+//         div.innerHTML =`
+//             <div class="card h-100">
+//                 <img src="${url === undefined }" class="card-img-top" alt="...">
+//                 <div class="card-body">
+//                     <h5 class="card-title">${load.title}</h5>
+//                     <p class="card-text">${load.author_name} <br>First publish:${load.first_publish_year}</p>
+//                 </div>
+//             </div>
+//         `;
+//         addBook.appendChild(div);
+//     });
+// }
