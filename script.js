@@ -65,14 +65,20 @@ const searchBook = () =>{
 // searchBook();
 const displayBookTitle = titles =>{
     const book = document.getElementById('add-book');
+    book.textContent ='';
     titles.forEach(titleBook =>{
         console.log(titleBook);
         const div = document.createElement('div');
-        div.classList.add('row');
+        // div.classList.add('card');
         div.innerHTML =`
-                    <div class="col-sm-2">
-                        <p>Title 1${titleBook.title}</p>
+                <div class="col"> 
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${titleBook.title}</h5>
+                            <p class="card-text"><span style="color:blue">Author Name</span>:${titleBook.author_name}<br>Publish Year <span style="color:red">${titleBook.first_publish_year}<span></p>
+                        </div>
                     </div>
+               </div>
         `;
         book.appendChild(div);
     })
@@ -81,14 +87,14 @@ const displayBookTitle = titles =>{
 
 // hard code book list showing
 
-const bookData =searchT=>{
+const bookData =()=>{
     fetch('https://openlibrary.org/search.json?q=javascript')
     .then(res => res.json())
     .then(data => displayBook(data.docs));
 } 
 bookData();
 const displayBook = books =>{
-    const bookList = books.slice(0, 6);
+    const bookList = books.slice(0, 8);
     console.log(bookList);
     const addBook = document.getElementById('book-result');
     bookList.forEach(book =>{
